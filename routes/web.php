@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\DataTable;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
+use Yajra\Datatables\Datatables;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/server', function(){
+	$datatable = DataTable::select('name', 'email', 'country');
+    return Datatables::of($datatable)->make('true');
+})->name('server.fetch');
